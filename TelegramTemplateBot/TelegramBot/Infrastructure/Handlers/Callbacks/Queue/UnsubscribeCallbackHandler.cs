@@ -9,12 +9,7 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Callbacks.Queu
     [HandleCallback("unsubscribe_")]
     public class UnsubscribeCallbackHandler : QueueCallbackHandler
     {
-        public UnsubscribeCallbackHandler(
-            ITelegramBotClient botClient,
-            IDisconnectionDataParser dataParser,
-            IUserRepository userRepository,
-            ILogger<UnsubscribeCallbackHandler> logger)
-            : base(botClient, dataParser, userRepository, logger)
+        public UnsubscribeCallbackHandler(ITelegramBotClient botClient, IDisconnectionDataParser dataParser, IUserRepository userRepository, ILogger<QueueCallbackHandler> logger) : base(botClient, dataParser, userRepository, logger)
         {
         }
 

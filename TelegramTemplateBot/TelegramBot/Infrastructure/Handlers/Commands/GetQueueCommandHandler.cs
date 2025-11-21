@@ -6,6 +6,7 @@ using ScheduleTrackingBot.TelegramBot.Core.Handlers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using TelegramTemplateBot.Extensions;
 
 namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Commands
 {
@@ -48,33 +49,12 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Commands
 
             try
             {
-                var queue = _dataParser.GetQueue(queueIndex);
-
-                if (queue == null)
-                {
-                    await _botClient.SendMessage(
-                        chatId: chatId,
-                        text: $"❌ Queue {queueIndex} not found. Use /all to see available queues.",
-                        cancellationToken: cancellationToken);
-                    return;
-                }
-
-                var messageText = QueueFormatter.FormatQueue(queue);
-
-                await _botClient.SendMessage(
-                    chatId: chatId,
-                    text: messageText,
-                    parseMode: ParseMode.Markdown,
-                    cancellationToken: cancellationToken);
+                await _botClient.SendQueuePhotoFromFile(queueIndex, chatId, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error getting queue {QueueIndex} for user {UserId}",
                     queueIndex, chatId);
-                await _botClient.SendMessage(
-                    chatId: chatId,
-                    text: "Sorry, an error occurred while fetching the queue. Please try again later.",
-                    cancellationToken: cancellationToken);
             }
         }
     }

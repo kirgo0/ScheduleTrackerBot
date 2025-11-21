@@ -6,6 +6,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using TelegramTemplateBot.Extensions;
 
 namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Callbacks.Queue
 {
@@ -15,25 +16,21 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Callbacks.Queu
         protected readonly IDisconnectionDataParser _dataParser;
         protected readonly IUserRepository _userRepository;
         protected readonly ILogger<QueueCallbackHandler> _logger;
-        private IQueueImageService _imageService;
 
         public QueueCallbackHandler(
             ITelegramBotClient botClient,
             IDisconnectionDataParser dataParser,
             IUserRepository userRepository,
-            ILogger<QueueCallbackHandler> logger,
-            IQueueImageService imageService)
+            ILogger<QueueCallbackHandler> logger)
         {
             _botClient = botClient;
             _dataParser = dataParser;
             _userRepository = userRepository;
             _logger = logger;
-            _imageService = imageService;
         }
 
         public virtual Task HandleAsync(Update update, CancellationToken cancellationToken = default)
         {
-            // Base implementation - will be overridden by specific handlers
             return Task.CompletedTask;
         }
 
@@ -91,9 +88,18 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Callbacks.Queu
 
             var keyboard = new InlineKeyboardMarkup(buttons);
 
-            await _botClient.EditMessageText(
+            try
+            {
+                await _botClient.SendQueuePhotoFromFile(queueIndex, chatId, cancellationToken: cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting queue {QueueIndex} for user {UserId}",
+                    queueIndex, chatId);
+            }
+
+            await _botClient.SendMessage(
                 chatId: chatId,
-                messageId: messageId,
                 text: messageText,
                 parseMode: ParseMode.Markdown,
                 replyMarkup: keyboard,

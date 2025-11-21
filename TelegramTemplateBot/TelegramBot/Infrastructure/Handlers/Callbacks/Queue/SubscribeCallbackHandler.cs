@@ -9,12 +9,7 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Callbacks.Queu
     [HandleCallback("subscribe_")]
     public class SubscribeCallbackHandler : QueueCallbackHandler
     {
-        public SubscribeCallbackHandler(
-            ITelegramBotClient botClient,
-            IDisconnectionDataParser dataParser,
-            IUserRepository userRepository,
-            ILogger<SubscribeCallbackHandler> logger)
-            : base(botClient, dataParser, userRepository, logger)
+        public SubscribeCallbackHandler(ITelegramBotClient botClient, IDisconnectionDataParser dataParser, IUserRepository userRepository, ILogger<QueueCallbackHandler> logger) : base(botClient, dataParser, userRepository, logger)
         {
         }
 

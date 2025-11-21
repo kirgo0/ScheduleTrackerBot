@@ -6,6 +6,7 @@ using ScheduleTrackingBot.TelegramBot.Core.Handlers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using TelegramTemplateBot.Extensions;
 
 namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Commands
 {
@@ -74,14 +75,23 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Commands
                 if (success)
                 {
                     var queue = _dataParser.GetQueue(queueIndex);
-                    var message_text = $"✅ Successfully subscribed to queue *{queue.FullName}*\n\n" +
-                        QueueFormatter.FormatQueueCompact(queue);
+                    var message_text = $"✅ Successfully subscribed to queue *{queue.Index}*\n\n";
 
                     await _botClient.SendMessage(
                         chatId: chatId,
                         text: message_text,
                         parseMode: ParseMode.Markdown,
                         cancellationToken: cancellationToken);
+
+                    try
+                    {
+                        await _botClient.SendQueuePhotoFromFile(queueIndex, chatId, cancellationToken: cancellationToken);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error getting queue {QueueIndex} for user {UserId}",
+                            queueIndex, chatId);
+                    }
 
                     _logger.LogInformation("User {UserId} successfully subscribed to queue {QueueIndex}",
                         chatId, queueIndex);

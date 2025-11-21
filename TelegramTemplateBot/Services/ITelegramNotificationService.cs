@@ -5,7 +5,7 @@ namespace TelegramTemplateBot.Services
 {
     public interface ITelegramNotificationService
     {
-        Task SendMessageToUserAsync(long telegramId, string message, ParseMode parseMode = ParseMode.Markdown);
+        Task SendMessageToUserAsync(long telegramId, string message, string queueIndex, ParseMode parseMode = ParseMode.Markdown);
         Task SendQueueUpdateToUserAsync(long telegramId, QueueData queue);
     }
 }

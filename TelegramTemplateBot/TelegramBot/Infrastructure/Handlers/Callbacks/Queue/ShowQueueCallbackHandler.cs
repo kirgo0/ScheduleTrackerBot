@@ -14,9 +14,8 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Callbacks.Queu
             ITelegramBotClient botClient,
             IDisconnectionDataParser dataParser,
             IUserRepository userRepository,
-            ILogger<ShowQueueCallbackHandler> logger,
-            IQueueImageService imageService)
-            : base(botClient, dataParser, userRepository, logger, imageService)
+            ILogger<ShowQueueCallbackHandler> logger)
+            : base(botClient, dataParser, userRepository, logger)
         {
         }
 
