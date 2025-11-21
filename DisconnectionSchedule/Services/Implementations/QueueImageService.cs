@@ -1,11 +1,12 @@
 ﻿using DisconnectionSchedule.Models;
+using DisconnectionSchedule.Services.Interfaces;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace DisconnectionSchedule.Services
+namespace DisconnectionSchedule.Services.Implementations
 {
     public class QueueImageService : IQueueImageService
     {

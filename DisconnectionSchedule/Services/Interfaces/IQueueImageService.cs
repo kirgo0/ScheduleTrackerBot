@@ -1,6 +1,6 @@
 ﻿using DisconnectionSchedule.Models;
 
-namespace DisconnectionSchedule.Services
+namespace DisconnectionSchedule.Services.Interfaces
 {
     public interface IQueueImageService
     {

@@ -1,9 +1,10 @@
 ﻿using DisconnectionSchedule.Models;
+using DisconnectionSchedule.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
-namespace DisconnectionSchedule.Services
+namespace DisconnectionSchedule.Services.Implementations
 {
     public class UserRepository : IUserRepository
     {

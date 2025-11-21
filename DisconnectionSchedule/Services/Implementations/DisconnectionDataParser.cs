@@ -1,11 +1,12 @@
 ﻿using DisconnectionSchedule.Events;
 using DisconnectionSchedule.Models;
+using DisconnectionSchedule.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace DisconnectionSchedule.Services
+namespace DisconnectionSchedule.Services.Implementations
 {
     public class DisconnectionDataParser : BackgroundService, IDisconnectionDataParser
     {
@@ -187,6 +188,21 @@ namespace DisconnectionSchedule.Services
             lock (_lock)
             {
                 return _queues.ContainsKey(index);
+            }
+        }
+
+        public void InitializeQueue(string queueIndex, QueueData queueData)
+        {
+            if (string.IsNullOrEmpty(queueIndex) || queueData == null)
+            {
+                _logger.LogWarning("Attempted to initialize queue with null or empty data");
+                return;
+            }
+
+            lock (_lock)
+            {
+                _queues[queueIndex] = queueData;
+                _logger.LogInformation($"Initialized queue {queueIndex} with persisted data from database");
             }
         }
 

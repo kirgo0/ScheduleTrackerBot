@@ -1,4 +1,4 @@
-﻿using DisconnectionSchedule.Services;
+﻿using DisconnectionSchedule.Services.Interfaces;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;

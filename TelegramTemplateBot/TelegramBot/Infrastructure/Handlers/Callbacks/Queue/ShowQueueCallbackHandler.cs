@@ -1,4 +1,4 @@
-﻿using DisconnectionSchedule.Services;
+﻿using DisconnectionSchedule.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using ScheduleTrackingBot.TelegramBot.Core.Attributes;
 using Telegram.Bot;

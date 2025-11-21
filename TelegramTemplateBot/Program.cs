@@ -1,5 +1,6 @@
 ﻿using DisconnectionSchedule.Configuration;
-using DisconnectionSchedule.Services;
+using DisconnectionSchedule.Services.Implementations;
+using DisconnectionSchedule.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -54,6 +55,7 @@ builder.Services.AddSingleton<IMongoDatabase>(sp =>
 
 builder.Services.AddSingleton<IDataUpdateNotifier, DataUpdateNotifier>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IQueueRepository, QueueRepository>();
 builder.Services.AddSingleton<IDisconnectionDataParser, DisconnectionDataParser>();
 builder.Services.AddSingleton<ITelegramNotificationService, TelegramNotificationService>();
 builder.Services.AddScoped<IQueueImageService, QueueImageService>();

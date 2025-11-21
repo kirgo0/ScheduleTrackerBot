@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DisconnectionSchedule.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace DisconnectionSchedule.Services
+namespace DisconnectionSchedule.Services.Implementations
 {
     public class DataUpdateNotifier : IDataUpdateNotifier
     {

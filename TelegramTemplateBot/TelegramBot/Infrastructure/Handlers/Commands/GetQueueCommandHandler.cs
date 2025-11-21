@@ -1,5 +1,5 @@
 ﻿using DisconnectionSchedule.Helper;
-using DisconnectionSchedule.Services;
+using DisconnectionSchedule.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using ScheduleTrackingBot.TelegramBot.Core.Attributes;
 using ScheduleTrackingBot.TelegramBot.Core.Handlers;
@@ -49,7 +49,11 @@ namespace TelegramTemplateBot.TelegramBot.Infrastructure.Handlers.Commands
 
             try
             {
-                await _botClient.SendQueuePhotoFromFile(queueIndex, chatId, cancellationToken: cancellationToken);
+                var queue = _dataParser.GetQueue(queueIndex);
+
+                var messageText = QueueFormatter.FormatQueue(queue);
+                
+                await _botClient.SendQueuePhotoFromFile(queueIndex, chatId, messageText, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
             {
