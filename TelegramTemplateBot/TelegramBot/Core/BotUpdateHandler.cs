@@ -154,6 +154,17 @@ namespace ScheduleTrackingBot.TelegramBot.Core
             }
             else
             {
+                var handlers = _registry.CallbackHandlers.AsEnumerable();
+                foreach(var handler in handlers)
+                {
+                    if (callbackQuery.Data.StartsWith(handler.Key))
+                    {
+                        _logger.LogDebug("Routing callback {CallbackData} to handler {HandlerType}",
+                            callbackQuery.Data, handler.Value.Name);
+                        await ExecuteHandlerAsync(handler.Value, update, cancellationToken);
+                        return;
+                    }
+                }
                 _logger.LogWarning("No handler found for callback data: {CallbackData}",
                     callbackQuery.Data);
             }

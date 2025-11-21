@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="DisconnectionSchedule/DisconnectionSchedule.csproj" Id="0b9ff071-7e89-42c3-bf98-8aa070994d2b" />
   <Project Path="TelegramTemplateBot/TelegramTemplateBot.csproj" />
 </Solution>
